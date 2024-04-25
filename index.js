@@ -1,32 +1,40 @@
 // CJS
 const { faker } = require('@faker-js/faker');
 const mysql = require("mysql2");
-// Get the client
-// import mysql from 'mysql2/promise';
 
 // Create the connection to database
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'delta_app',
-  password : "omkar4771"
+  host: "localhost",
+  user: "root",
+  database: "delta_app",
+  password : "omkar4771",
 });
 
+let getRandomUser = () => {
+  return [
+    faker.string.uuid(),
+    faker.internet.userName(),
+    faker.internet.email(),
+    faker.internet.password()
+  ];
+};
+
+//new data inserting
+// let query = "INSERT INTO user (id, username, email, password) VALUES (?, ?, ?, ?)"; // for single user
+let query = "INSERT INTO user (id, username, email, password) VALUES ?";
+let data=[];
+for(let i=1; i<100; i++)
+{
+  data.push(getRandomUser()); // 100 fake users
+};
+
 try{
-  connection.query("SHOW * from Temp",(err,result,)=>{
+  connection.query(query,[data],(err,result,)=>{
+    // if(err) throw err;
     console.log(result);
-  })
+  });
 }
 catch(err){
   console.log(err);
 }
-
-let getRandomUser = () => {
-    return {
-      id: faker.string.uuid(),
-      username: faker.internet.userName(),
-      email: faker.internet.email(),
-      password: faker.internet.password()
-    };
-  }
-  console.log(getRandomUser());
+connection.end();
