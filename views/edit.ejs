@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit username</title>
+    <link rel="stylesheet" href="\edit.css">
 </head>
 <body>
-    <h1><%= user.username %></h1>
+    <h1>Edit your username :</h1>
+    <h3><%= user.username %></h3>
+    <form action="/user/<%= user.id %>?_method=PATCH" method="post">
+        <textarea name="username" id="" cols="30" rows="2"><%= user.username %></textarea>
+        <input type="password" name="password" placeholder="enter password">
+        <button>Edit</button>
+    </form>
 </body>
 </html>
