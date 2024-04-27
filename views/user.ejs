@@ -3,33 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user</title>
-    <style>
-        table,th, td{
-            border: 1px solid black;
-        }
-    </style>
+    <title>User</title>
+    <link rel="stylesheet" href="\user.css">
 </head>
 <body>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Edit</th>
-        </tr>
-        <% for(user of result){ %>
+    <div class="form-container">
+        <h1>User's Details</h1>
+        <form action="/user/new" method="GET">
+            <button>Add new User</button>
+        </form>
+    </div>
+    <div class="container">
+        <table>
             <tr>
-                <td><%= user.id %></td>
-                <td><%= user.email %></td>
-                <td><%= user.username %></td>
-                <td>
-                <form action="/user/<%= user.id %>/edit" method="GET">
-                <button>Edit Username</button></form>
-                </td>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
-       <% } %>
-        
-    </table>
+            <% for(user of result){ %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.username %></td>
+                    <td>
+                        <form action="/user/<%= user.id %>/edit" method="GET">
+                            <button>Edit Username</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/user/<%= user.id %>/delete" method="get">
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
 </body>
 </html>
